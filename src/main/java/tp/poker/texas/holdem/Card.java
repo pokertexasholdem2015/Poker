@@ -9,24 +9,20 @@ public class Card {
 			"piatka", "szostka", "siodemka", "osemka", "dziewiatka",
 			"dziesiatka", "walet", "dama", "krol", "as" };
 
-	Card(int kolor, int numfig)
-	{
+	Card(int kolor, int numfig) {
 		this.kolor = kolor%4;
 		this.numfig = numfig%12;
 	}
 	
-	public String nazwaKarty()
-	{
+	public String nazwaKarty() {
 		return numfigy[numfig] + " " + kolory[kolor];
 	}
 	
-	public int getKolor()
-	{
+	public int getKolor() {
 		return kolor;
 	}
 	
-	public int getNumFig()
-	{
+	public int getNumFig() {
 		return numfig;
 	}
 }
