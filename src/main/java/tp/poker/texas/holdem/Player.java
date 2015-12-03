@@ -4,6 +4,7 @@ public abstract class Player {
 	public Card reka[] = new Card[5];
 	int uklad = 0;
 	private int zetony = 0;
+	
 	public abstract int BotBetStrategy(Table stol);
 	
 	public Card odbierzKarte(Card karta)
