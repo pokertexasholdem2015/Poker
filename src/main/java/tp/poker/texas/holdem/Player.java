@@ -9,18 +9,21 @@ public abstract class Player {
 	
 	public Card odbierzKarte(Card karta)
 	{
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			if (reka[i] == null) {
 				reka[i] = karta;
-				if(reka[4] != null)
-				{
-					//CardSort();
-					//rangaUkladu();
-				}
-				return null;
+				break;
+					
 			}
 		}
 		return karta;
+	}
+	
+	public void pokazKarty() {
+		for (int i = 0; i < 4; i++) {
+			if (reka[i] != null)
+				System.out.println(i+1 + " | " + reka[i].nazwaKarty());
+		}
 	}
 
 }
