@@ -1,4 +1,3 @@
-
 package tp.poker.texas.holdem;
 
 import java.net.ServerSocket;
@@ -10,13 +9,15 @@ import org.junit.Test;
 import tp.poker.texas.holdem.SerwerPoker;
 import junit.framework.TestCase;
 
-public class SerwerTest extends TestCase {
+public class SerwerPokerTest extends TestCase {
 	//do serwera
 	private ServerSocket socket_serwer;
-	private SrvClient klient[];
+	private KlientPoker klient[];
+	private Player gracz[] = new Player[5]; 
+	private Table stol;
 	
 	//do podlaczenia
-	int ip,port;
+	int ip, port;
 	static Socket socket = null;
 	
 
@@ -24,10 +25,8 @@ public class SerwerTest extends TestCase {
 	public void setUpBeforeClass() throws Exception {
 		// do serwera
 		socket_serwer = null;
-		SrvClient klient[] = new SrvClient[5]; // moze byc maksymalnie 5ciu klientow
+		klient = new KlientPoker[5];
 		
-		Player gracz[] = new Player[5]; 
-		Table stol;
 	
 		
 		// do podlaczania
@@ -40,5 +39,10 @@ public class SerwerTest extends TestCase {
 		
 	}
 	
+	//Uruchomienie serwera
+	@Test(expected=NumberFormatException.class)
+	public void testMtdMain() {
+		SerwerPoker.main(new String[] {"2", "0", "15", "5"});
+	}
 	
 }

@@ -4,6 +4,7 @@ public class Bot extends Player {
 	
 	
 	public int BotBetStrategy(Table stol){
+		return uklad;
 		
 	}
 
