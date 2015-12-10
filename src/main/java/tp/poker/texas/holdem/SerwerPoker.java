@@ -1,5 +1,7 @@
 package tp.poker.texas.holdem;
 
+import Table;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.BitSet;
@@ -9,7 +11,7 @@ public class SerwerPoker {
 	KlientPoker klient[] = new KlientPoker[10];
 	
 	Player gracz[] = new Player[10];
-	BitSet moze_grac = new BitSet(5);
+	BitSet moze_grac = new BitSet(10);
 	Table stol;
 	
 	// parametry gry
@@ -23,7 +25,7 @@ public class SerwerPoker {
 	int etap=1;
 	int start_game = 0;
 	int gracz_perm = 0;
-	BitSet winners = new BitSet(5);
+	BitSet winners = new BitSet(10);
 	
 	// kostruktor serwera
 	SerwerPoker(int port){
@@ -38,7 +40,7 @@ public class SerwerPoker {
 		}
 	}
 	
-	// funkcja czekajaca na polaczenie wszystkich graczy i zaczynaj¹ca gre
+	// funkcja czekajaca na polaczenie wszystkich graczy i zaczynajï¿½ca gre
 	public void listenSocket() {
 		int clients = 0;
 		moze_grac.clear();
@@ -83,6 +85,7 @@ public class SerwerPoker {
 	
 // metoda niedokonczona, dlatego return 0 zeby nic sie nie czepial ze bledy
 	public int nextStepGame(boolean przel){
+		
 		
 		return 0;
 	}
