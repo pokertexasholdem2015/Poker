@@ -1,8 +1,6 @@
 package tp.poker.texas.holdem;
 
-import Card;
-import Deck;
-import Player;
+
 
 import java.util.BitSet;
 
@@ -29,21 +27,21 @@ public class Table {
 			}
 		}
 	}
-	public void OstatniEtapKart(){
+	public void OstatniEtapKart(Player gracze[]){
 		for(int i=0; i < 10; i++)
 		{
 			for(int y = 0; y < gracze.length; y++)
 			{
 				if(gracze[y] != null)
 					
-					for (int i = 0; i < 4; i++) {
-						if (reka[i] != null) {
-							gracze[y].odbierzkarte(reka[i]);
+					for (int j = 0; j < 4; j++) {
+						if (reka[j] != null) {
+							gracze[y].odbierzKarte(reka[i]);
 							break;
 								
 						}
 						else{
-							gracze[y].CardSort;
+							gracze[y].CardSort();
 						}
 					}
 			}
@@ -138,7 +136,7 @@ public class Table {
 	public BitSet compareAllPlayers(Player gracz[])
 	{
 		BitSet wygr = new BitSet(10);
-		wygr.set(0, 5);
+		wygr.set(0, 10);
 		int wygrywajacy = 0;
 		while(gracz[wygrywajacy] == null)
 		{
