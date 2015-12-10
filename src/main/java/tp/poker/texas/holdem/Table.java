@@ -1,7 +1,5 @@
 package tp.poker.texas.holdem;
 
-
-
 import java.util.BitSet;
 
 
