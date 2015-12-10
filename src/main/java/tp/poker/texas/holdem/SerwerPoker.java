@@ -1,6 +1,5 @@
 package tp.poker.texas.holdem;
 
-import Table;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,10 +8,12 @@ import java.util.BitSet;
 public class SerwerPoker {
 	ServerSocket socket_serwer = null;
 	KlientPoker klient[] = new KlientPoker[10];
+	Deck deck = new Deck();
+	Card reka[] = new Card[7];
 	
 	Player gracz[] = new Player[10];
 	BitSet moze_grac = new BitSet(10);
-	Table stol;
+	Table stol = new Table(gracz);
 	
 	// parametry gry
 	static short ileKlientow=0;
@@ -85,11 +86,45 @@ public class SerwerPoker {
 	
 // metoda niedokonczona, dlatego return 0 zeby nic sie nie czepial ze bledy
 	public int nextStepGame(boolean przel){
+		rozdanieDwochKart();
+		flop();
+		turn();
+		river();
+		getWinner();
 		
-		
-		return 0;
+		return 1;
 	}
 	
+	private void getWinner() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void river() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void turn() {
+				
+	}
+
+	private void flop() {
+		deck.wezZTalii();
+//		stol.kartaNastol(karta);
+//		stol.kartaNastol(karta);
+//		stol.kartaNastol(karta);
+		//sprawdzRankingGraczy();
+	}
+
+	private void rozdanieDwochKart() {
+		for (int i = 0; i < (ileKlientow+ileBotow); i++) {
+//			gracz[i].odbierzKarte() = deck.wezZTalii();
+//			gracz[i].odbierzKarte() = deck.wezZTalii();
+		}
+		//sprawdzRankingGraczy();
+	}
+
 	public void sendMessageToAll(String mssg) {
 		for(int i = 0; i < ileKlientow; i++)
 		{

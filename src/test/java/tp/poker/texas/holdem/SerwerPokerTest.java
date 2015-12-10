@@ -15,6 +15,10 @@ public class SerwerPokerTest extends TestCase {
 	private KlientPoker klient[];
 	private Player gracz[] = new Player[5]; 
 	private Table stol;
+	private String ileKlientow = "3";
+	private String ileBotow = "0";
+	private String iloscZetonow = "15";
+	private String wysokoscWpisowego = "5";
 	
 	//do podlaczenia
 	int ip, port;
@@ -25,7 +29,7 @@ public class SerwerPokerTest extends TestCase {
 	public void setUpBeforeClass() throws Exception {
 		// do serwera
 		socket_serwer = null;
-		klient = new KlientPoker[5];
+		klient = new KlientPoker[10];
 		
 	
 		
@@ -42,7 +46,6 @@ public class SerwerPokerTest extends TestCase {
 	//Uruchomienie serwera
 	@Test(expected=NumberFormatException.class)
 	public void testMtdMain() {
-		SerwerPoker.main(new String[] {"2", "0", "15", "5"});
+		SerwerPoker.main(new String[] {ileKlientow, ileBotow, iloscZetonow, wysokoscWpisowego});
 	}
-	
 }
