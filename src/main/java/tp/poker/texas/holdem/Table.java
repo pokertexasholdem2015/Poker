@@ -53,6 +53,7 @@ public class Table {
 					UnsetButtons(gracze[gracze.length]);
 					SetBigBlind(gracze[gracze.length]);
 					SetSmallBlind(gracze[0]);
+					break;
 					
 				}
 				else if(gracze[gracze.length].DealerButton==true){
@@ -60,6 +61,7 @@ public class Table {
 					UnsetButtons(gracze[0]);
 					SetBigBlind(gracze[0]);
 					SetSmallBlind(gracze[1]);
+					break;
 					
 				}
 					
