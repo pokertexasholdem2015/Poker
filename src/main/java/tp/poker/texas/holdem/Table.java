@@ -8,17 +8,22 @@ public class Table {
 	Deck talia;
 	private int zetony = 0;
 	int stawka = 0;
+	int small;
+	int big;
 	public Card reka[] = new Card[5];
 	boolean check = true;
 	boolean ALLin = false;
-	//boolean DealerButton=false;
+
 	
-	Table(Player gracze[])
+	Table(Player gracze[], int s, int b)
 	{
+		this.small=s;
+		this.big=b;
+		
 		talia = new Deck();
 		
 		
-		for(int i=0; i < 10; i++)
+		for(int i=0; i < 1; i++)
 		{
 			for(int y = 0; y < gracze.length; y++)
 			{
@@ -28,6 +33,9 @@ public class Table {
 		}
 	}
 	
+
+	
+	
  public void UnsetButtons(Player gracz){
 	 if(gracz.DealerButton==true){
 		 gracz.DealerButton=false;
@@ -36,6 +44,7 @@ public class Table {
 		 gracz.SmallBlind=false;
 	 }
  }
+ 
 	
 	public void PassingDealerButton(Player gracze[]){
 		
