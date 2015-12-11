@@ -1,5 +1,6 @@
 package tp.poker.texas.holdem;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 
 
@@ -73,6 +74,20 @@ public class Table {
 		final String[] rodzUkla = { "", "Poker", "Kareta", "Ful", "Kolor",
 				"Strit", "Trojka", "Dwie pary", "Para", "Najwyzsza karta" };
 		return rodzUkla[uklad];
+	}
+	
+	public ArrayList<String> pokazKarty(Player gracz) {
+		ArrayList<String> kartygracza = new ArrayList<String>();
+		String s;
+		for (int i = 0; i < 4; i++) {
+			if (gracz.reka[i] != null){
+				s=(" "+i + " | " + reka[i].nazwaKarty());
+				kartygracza.add(s);
+				
+			}
+				
+		}
+		return kartygracza;
 	}
 	
 	public void OstatniEtapKart(Player gracze[]){
