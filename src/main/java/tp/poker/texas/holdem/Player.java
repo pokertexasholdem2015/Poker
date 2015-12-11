@@ -1,14 +1,22 @@
 package tp.poker.texas.holdem;
 
-import Card;
-import Player;
+
 
 public abstract class Player {
+	public boolean DealerButton=false;
+	public boolean SmallBlind=false;
 	public Card reka[] = new Card[7];
 	int uklad = 0;
 	private int zetony = 0;
 	
-	//public abstract int BotBetStrategy(Table stol);
+	
+	public abstract int BotBetStrategy(Table stol);
+	
+	public void zniszczKarty()
+	{
+		for(int i=0; i < 7; i++)
+			reka[i] = null;
+	}
 	
 	public Card odbierzKarte(Card karta)
 	{
@@ -45,7 +53,7 @@ public abstract class Player {
 	public int Zetony() {
 		return zetony;
 	}
-	
+	/////////////////////////////
 	public void CardSort() {
 		Card pomoc = null;
 		for (int i = 0; i < 7; i++) {
@@ -60,6 +68,15 @@ public abstract class Player {
 					}
 				}
 		}
+	}
+	
+	private boolean czyKolorSame() {
+		if (reka[0].getKolor() == reka[1].getKolor())
+			if (reka[1].getKolor() == reka[2].getKolor())
+				if (reka[2].getKolor() == reka[3].getKolor())
+					if (reka[3].getKolor() == reka[4].getKolor())
+						return true;
+		return false;
 	}
 	
 	// --------------------------------------------
@@ -148,5 +165,75 @@ public abstract class Player {
 			}
 
 			// --------------------------------------------
+			
+			public int rangaUkladu() {
+				int ts = 0;
+				int kolejne = 0;
+				for (int i = 0; i < 4; i++) {
+					if (reka[i] != null && reka[i + 1] != null) {
+						if (reka[i].getNumFig() == reka[i + 1].getNumFig()) {
+							if (uklad == 8 && ts == 0) {
+								uklad = 7;
+								ts++;
+								continue;
+							}
+							if (uklad == 6 && ts == 1 || uklad == 7 && ts == 1) {
+								uklad = 3;
+								break;
+							}
+							if (ts == 0 && uklad != 4) {
+								uklad = 8;
+								ts++;
+								continue;
+							}
+							if (ts == 0 && uklad == 4) {
+								ts++;
+								continue;
+							}
+							if (ts == 1 && uklad != 4) {
+								uklad = 6;
+								ts++;
+								continue;
+							}
+							if (ts == 1 && uklad == 4) {
+								ts++;
+								continue;
+							}
+							if (ts == 2) {
+								uklad = 2;
+								break;
+							}
+						} else if (reka[i].getNumFig() != reka[i + 1].getNumFig()) {
+							if (reka[i].getNumFig() + 1 == reka[i + 1].getNumFig()) {
+								kolejne++;
+								if (kolejne == 4)
+									if (czyKolorSame())
+										uklad = 1;
+									else
+										uklad = 5;
+								continue;
+							}
+							if (uklad == 8 && ts == 1) {
+								ts--;
+								continue;
+							}
+							if (uklad == 6 && ts == 2) {
+								ts--;
+								continue;
+							}
+							if (ts == 0 || uklad == 6 && ts == 1) {
+								if (czyKolorSame() && uklad != 4) {
+									uklad = 4;
+									ts = 0;
+									continue;
+								}
+							}
+						}
+					}
+				}
+				if (uklad == 0)
+					uklad = 9;
+				return uklad;
+			}
 
 }

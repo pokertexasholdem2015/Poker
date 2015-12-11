@@ -10,6 +10,7 @@ public class Table {
 	public Card reka[] = new Card[5];
 	boolean check = true;
 	boolean ALLin = false;
+	//boolean DealerButton=false;
 	
 	Table(Player gracze[])
 	{
@@ -25,6 +26,55 @@ public class Table {
 			}
 		}
 	}
+	
+ public void UnsetButtons(Player gracz){
+	 if(gracz.DealerButton==true){
+		 gracz.DealerButton=false;
+	 }
+	 if(gracz.SmallBlind==true){
+		 gracz.SmallBlind=false;
+	 }
+ }
+	
+	public void PassingDealerButton(Player gracze[]){
+		
+			for(int y = 0; y < gracze.length; y++)
+			{
+				if(gracze[y].DealerButton==true){
+					UnsetButtons(gracze[y]);
+					UnsetButtons(gracze[y+1]);
+					SetBigBlind(gracze[y+1]);
+					SetSmallBlind(gracze[y+2]);
+					break;
+				}
+					
+			}
+		
+		
+	}
+	
+	public void SetSmallBlind(Player gracz){
+		gracz.SmallBlind=true;
+	}
+	
+	
+	public void SetBigBlind(Player gracz){
+		
+		gracz.DealerButton=true;
+	}
+	
+	public void PoCalejRundzie()
+	{
+		for(int i=0; i < 5; i++)
+			reka[i] = null;
+	}
+	
+	public String pokazUklad(int uklad) {
+		final String[] rodzUkla = { "", "Poker", "Kareta", "Ful", "Kolor",
+				"Strit", "Trojka", "Dwie pary", "Para", "Najwyzsza karta" };
+		return rodzUkla[uklad];
+	}
+	
 	public void OstatniEtapKart(Player gracze[]){
 		for(int i=0; i < 10; i++)
 		{

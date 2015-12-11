@@ -16,7 +16,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void TestOdbioruKarty(){
+	public void testOdbioruKarty(){
 		gracze[0].odbierzKarte(karta);
 //		assertEquals(gracz.reka[0].nazwaKarty(), "dwojka trefl");
 	}
