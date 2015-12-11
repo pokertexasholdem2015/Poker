@@ -48,6 +48,22 @@ public class Table {
 					SetSmallBlind(gracze[y+2]);
 					break;
 				}
+				else if(gracze[gracze.length-1].DealerButton==true){
+					UnsetButtons(gracze[gracze.length-1]);
+					UnsetButtons(gracze[gracze.length]);
+					SetBigBlind(gracze[gracze.length]);
+					SetSmallBlind(gracze[0]);
+					
+				}
+				else if(gracze[gracze.length].DealerButton==true){
+					UnsetButtons(gracze[gracze.length]);
+					UnsetButtons(gracze[0]);
+					SetBigBlind(gracze[0]);
+					SetSmallBlind(gracze[1]);
+					
+				}
+					
+				
 					
 			}
 		
