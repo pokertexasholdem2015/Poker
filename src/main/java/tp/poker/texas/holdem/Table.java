@@ -15,10 +15,9 @@ public class Table {
 	boolean ALLin = false;
 
 	
-	Table(Player gracze[], int s, int b)
+	Table(Player gracze[])
 	{
-		this.small=s;
-		this.big=b;
+		
 		
 		talia = new Deck();
 		
@@ -33,7 +32,11 @@ public class Table {
 		}
 	}
 	
-
+public void AmmountOfBlinds(int b, int s){
+	
+	this.small=s;
+	this.big=b;
+}
 	
 	
  public void UnsetButtons(Player gracz){

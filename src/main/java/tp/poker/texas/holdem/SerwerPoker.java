@@ -11,9 +11,10 @@ public class SerwerPoker {
 	Deck deck = new Deck();
 	Card reka[] = new Card[7];
 	
-	Player gracz[] = new Player[10];
+	Player gracze[] = new Player[10];
 	BitSet moze_grac = new BitSet(10);
-	Table stol = new Table(gracz);
+	Table stol;
+	//Table stol = new Table(gracze[], small, big);
 	
 	// parametry gry
 	static short ileKlientow=0;
@@ -51,8 +52,8 @@ public class SerwerPoker {
                 klient[clients] = new KlientPoker(socket_serwer.accept(), this);
                 klient[clients].Client_ID = (short)clients;
                 
-                gracz[clients] = new Human();
-                gracz[clients].dajZetony(iloscZetonow);
+                gracze[clients] = new Human();
+                gracze[clients].dajZetony(iloscZetonow);
                 moze_grac.set(clients);
                 
                 sendMessageToAll("MSG Nowy gracz (ID: " + clients + ") dolaczyl do gry");
@@ -63,8 +64,8 @@ public class SerwerPoker {
     		}
 		}
 		for(int i = 0; i < ileBotow; i++) {
-			gracz[ileKlientow + i] = new Bot();
-			gracz[ileKlientow + i].dajZetony(iloscZetonow);
+			gracze[ileKlientow + i] = new Bot();
+			gracze[ileKlientow + i].dajZetony(iloscZetonow);
 			moze_grac.set(ileKlientow + i);
 		}
 		
@@ -89,6 +90,7 @@ public class SerwerPoker {
 		/*lista wydarzen
 		 * Sprawdzenie trybu
 		 * wyslanie wiadomosci do klientow o trybie gry
+		 * przyznanie Dealer buttona i smalla
 		 * Po 2 karty ( jest w konstruktorze Table rozdanie kart graczom ew. mozna zamienic na metode w table)
 		 * Wyswietlanie stringa kto jest na small i big (oprocz grafiki gui) 
 		 * pierwsza licytacja z uwzglednieniem small i big 
