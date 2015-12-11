@@ -86,19 +86,33 @@ public class SerwerPoker {
 	
 // metoda niedokonczona, dlatego return 0 zeby nic sie nie czepial ze bledy
 	public int nextStepGame(boolean przel){
-		rozdanieDwochKart();
+		/*lista wydarzen
+		 * Sprawdzenie trybu
+		 * wyslanie wiadomosci do klientow o trybie gry
+		 * Po 2 karty ( jest w konstruktorze Table rozdanie kart graczom ew. mozna zamienic na metode w table)
+		 * Wyswietlanie stringa kto jest na small i big (oprocz grafiki gui) 
+		 * pierwsza licytacja z uwzglednieniem small i big 
+		 * karta na stol
+		 * druga licytacja z big small
+		 * karta na stol
+		 * i tak do ostatniej karty
+		 * wtedy wywolanie Ostatniego etapu 
+		 * Wylonienie zwyciezcy (sa metody w table )
+		 * Przekazanie stawki 
+		 * wynullowanie stolu tj kart i innych zmiennych 
+		 */
+		
+		
+	
 		flop();
 		turn();
 		river();
-		getWinner();
+	
 		
 		return 1;
 	}
 	
-	private void getWinner() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	private void river() {
 		// TODO Auto-generated method stub
@@ -117,13 +131,7 @@ public class SerwerPoker {
 		//sprawdzRankingGraczy();
 	}
 
-	private void rozdanieDwochKart() {
-		for (int i = 0; i < (ileKlientow+ileBotow); i++) {
-//			gracz[i].odbierzKarte() = deck.wezZTalii();
-//			gracz[i].odbierzKarte() = deck.wezZTalii();
-		}
-		//sprawdzRankingGraczy();
-	}
+	
 
 	public void sendMessageToAll(String mssg) {
 		for(int i = 0; i < ileKlientow; i++)
