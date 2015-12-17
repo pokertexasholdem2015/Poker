@@ -46,6 +46,10 @@ public abstract class Player {
 				System.out.println(i+1 + " | " + reka[i].nazwaKarty());
 		}
 	}
+	
+	public String pokazKarte(int miejsce){
+		return reka[miejsce%5].getKolor()+"/"+reka[miejsce%5].getNumFig();
+	}
 
 	//metody uzywane tylko przez Table
 	public int wezZetony(int wartosc) {

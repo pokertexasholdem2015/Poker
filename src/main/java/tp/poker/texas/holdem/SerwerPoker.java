@@ -132,10 +132,13 @@ public class SerwerPoker {
 		
 		// rozdanie po 2 karty dla kazdego gracza z potasowanej wczesniej talii
 		for(int i = 0; i < liczbaGraczy; i++) {
-			reka[0] = deck.wezZTalii();
-			reka[1] = deck.wezZTalii();
-			gracze[i].odbierzKarte(reka[0]);
-			gracze[i].odbierzKarte(reka[1]);
+			//reka[0] = deck.wezZTalii();
+			//reka[1] = deck.wezZTalii();
+			//gracze[i].odbierzKarte(reka[0]);
+			//gracze[i].odbierzKarte(reka[1]);
+			// POPRAWIONE
+			stol.pobierzKarte(gracze[i]);
+			stol.pobierzKarte(gracze[i]);
 		}
 		
 		start_game = Math.abs((int)System.currentTimeMillis())%ileKlientow;
@@ -199,6 +202,7 @@ public class SerwerPoker {
 	// dokladana jest 5 karta
 	private void river() {
 		stol.kartaNastol(deck.wezZTalii());
+		
 	}
 
 	// do trzech widocznych kart dokladana jest 1 karta

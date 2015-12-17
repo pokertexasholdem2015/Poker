@@ -225,6 +225,14 @@ public void AmmountOfBlinds(int b, int s){
 	}
 	
 	
+	public boolean zamienKarte(Player gracz, int NrRek) {
+		if(gracz == null) return false;
+		//talia.wrzucDoTalii(gracz.reka[NrRek%5]);
+		gracz.reka[NrRek%5] = null;
+		pobierzKarte(gracz);
+		return true;
+	}
+	
 	
 	public BitSet compareAllPlayers(Player gracz[])
 	{
