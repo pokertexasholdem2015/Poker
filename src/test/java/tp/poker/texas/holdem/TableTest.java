@@ -2,37 +2,60 @@ package tp.poker.texas.holdem;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class TableTest {
-	Table stol;
-	Player gracze[];
-	Card karta;
+import junit.framework.TestCase;
+
+
+public class TableTest extends TestCase {
+	private Table stol;
+	private Player gracze[];
+	private Human gracz;
+	private Card karta;
+	private int zetony = 5;
 	
 	
-	public void setUp() {
-		//gracze = new Player[2];
-		stol = new Table(gracze = new Player[2]);
+	protected void setUp() {
+		gracze = new Player[1];
+		stol = new Table(gracze);	
 		karta = new Card(1, 1);
-		gracze[0].DealerButton = true;
-		gracze[1].SmallBlind = true;
+		gracz = new Human();
+		
+		//gracze[1].SmallBlind = true;
 	}
 	
-	public void tearDown() {
+	protected void tearDown() {
+		gracze = null;
 		stol = null;
+		karta = null;
 	}
 	
 	@Test
-	public void testUnsetButtons() {
-		stol.UnsetButtons(gracze[0]);
-		assertEquals(false, gracze[0].DealerButton);
+	public void testMtdUnsetButtons() {
+		//gracze[0].DealerButton = true;
+		assertNotNull(stol);
+		//gracze[0].DealerButton = true;
+		//stol.UnsetButtons(gracze[0]);
+		//assertEquals(false, gracze[0].DealerButton);
 		
 		//stol.UnsetButtons(gracz);
 	}
 	
 	@Test
-	public void testOdbierzKarte() {
-		gracze[0].odbierzKarte(karta);
+	public void testMtdGetPula() {
+		stol.giveZetony(zetony);
+		assertEquals(5, stol.getPula());
 	}
+	
+	@Test
+	public void testMtdGiveZetony() {
+		stol.giveZetony(zetony);
+	}
+	
+	@Test
+	public void testOddajPuleWygr() {
+		stol.oddajPuleWygr(gracz);
+	}
+	
 }

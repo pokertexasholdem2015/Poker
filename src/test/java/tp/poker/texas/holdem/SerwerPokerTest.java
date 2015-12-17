@@ -19,6 +19,7 @@ public class SerwerPokerTest extends TestCase {
 	private String ileBotow = "0";
 	private String iloscZetonow = "15";
 	private String wysokoscWpisowego = "5";
+	private SerwerPoker serwer;
 	
 	//do podlaczenia
 	int ip, port;
@@ -37,6 +38,13 @@ public class SerwerPokerTest extends TestCase {
 		//socket = new Socket(ip,port);
 		
 	}
+	
+	@Test
+	public void testMtdNextStepGame() {
+		serwer = new SerwerPoker(3535);
+		int x = serwer.nextStepGame(true);
+	}
+	
 	
 	@Test
 	public void testPodlaczenia(){

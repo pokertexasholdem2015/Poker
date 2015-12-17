@@ -4,6 +4,8 @@ package tp.poker.texas.holdem;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.BitSet;
+import java.util.Random;
+
 
 public class SerwerPoker {
 	ServerSocket socket_serwer = null;
@@ -15,6 +17,7 @@ public class SerwerPoker {
 	BitSet moze_grac = new BitSet(10);
 	Table stol;
 	//Table stol = new Table(gracze[], small, big);
+	int graczDealer;
 	
 	// parametry gry
 	static short ileKlientow=0;
@@ -85,8 +88,7 @@ public class SerwerPoker {
 		}
 	}
 	
-// metoda niedokonczona, dlatego return 0 zeby nic sie nie czepial ze bledy
-	public int nextStepGame(boolean przel){
+	public int nextStepGame(boolean przel) {
 		/*lista wydarzen
 		 * Sprawdzenie trybu
 		 * wyslanie wiadomosci do klientow o trybie gry
@@ -104,32 +106,111 @@ public class SerwerPoker {
 		 * wynullowanie stolu tj kart i innych zmiennych 
 		 */
 		
+		//zaklady obowiazkowe
+		if(etap == 1) {
+			stol = new Table(gracze);
+			stol.giveZetony(zetonyKasyna);
+			for(int i = 0; i < ileKlientow+ileBotow; i++) {
+				if(gracze[i] != null)
+					moze_grac.set(i);
+			}
+			for(int i=0; i < gracze.length; i++) {
+				if(gracze[i] != null)
+					if(!stol.wezZetony(gracze[i], wysokoscWpisowego, 4)) {
+						moze_grac.clear(i);
+					}
+			}
+		sendMessageToAll("MSG Wpisowe zostalo pobrane.");
+		etap = 2;
+		int liczbaGraczy = (ileKlientow + ileBotow);
+		Random generator = new Random(); 
+		graczDealer = generator.nextInt(liczbaGraczy);
+		// przyznanie dealer buttona losowemu graczowi oraz przyznanie small i big blind
+		gracze[graczDealer].DealerButton = true;
+		gracze[graczDealer + 1].SmallBlind = true;
+		gracze[graczDealer + 2].BigBlind = true;
 		
-	
-		flop();
-		turn();
-		river();
-	
+		// rozdanie po 2 karty dla kazdego gracza z potasowanej wczesniej talii
+		for(int i = 0; i < liczbaGraczy; i++) {
+			reka[0] = deck.wezZTalii();
+			reka[1] = deck.wezZTalii();
+			gracze[i].odbierzKarte(reka[0]);
+			gracze[i].odbierzKarte(reka[1]);
+		}
 		
+		start_game = Math.abs((int)System.currentTimeMillis())%ileKlientow;
+		while(moze_grac.get(start_game) == false) {
+			start_game = (start_game+1)%ileKlientow;
+		}
+		gracz_perm = start_game;
+		sendMessageToAll("CMD START");
+		sendMessageToAll("MSG Karty zostaly rozdane.");
+		sendMessageToAll("MSG Gre zaczyna Gracz "+gracz_perm+".");
+		klient[gracz_perm].sendMessage("MSG Zaczynasz gre.");
 		return 1;
+		}
+		// pierwsza i druga runda licytacji
+		else if(etap >= 2 && etap <= 4) {
+			//gracze[graczDealer + 3]
+			// teraz gracz na lewo od gracza z big blind czyli gracz gracze[graczDealer + 3] rozpoczyna pierwsza runde licytacji
+			flop();
+			// teraz gracz z small blind zaczyna druga runde licytacji
+			turn();
+			// teraz gracz z small blind rozpoczyna trzecia runde licytacji
+			river();
+			// teraz czwartą rundę rozpoczyna gracz z small blind
+		}
+		// wylonienie zwyciezcy
+		else if(etap == 5) {
+			// na podstawie rankingu ukladow wylaniany jest zwyciezca
+			winners = stol.compareAllPlayers(gracze);
+			winners.and(moze_grac);
+			if(winners.cardinality() > 1)
+			{
+				sendMessageToAll("MSG ---------------//REMIS//---------------");
+				sendMessageToAll("MSG Koniec gry");
+				sendMessageToAll("MSG ");
+				zetonyKasyna = stol.getPula();
+				//return 1;
+			}
+			else
+			{
+				gracz_perm = winners.nextSetBit(0);
+				sendMessageToAll("MSG ---------------//WYGRANA//---------------");
+				sendMessageToAll("MSG Gracz "+gracz_perm+" wygral i zgarnia wygrana w wysokosci "+stol.getPula()+" !");
+				stol.oddajPuleWygr(gracze[gracz_perm]);
+				if(gracz_perm < ileKlientow)
+					klient[gracz_perm].sendMessage("MSG Gratulacje ! Wygrales !");
+			}
+			gracz_perm = 0;
+			etap = 1;
+			
+			for(int i = 0; i < ileKlientow+ileBotow; i++)
+				if(gracze[i] != null)
+					gracze[i].zniszczKarty();
+			
+			nextStepGame(false);
+			return 1;
+		}
+		return 0;
 	}
 	
 
-
+	// dokladana jest 5 karta
 	private void river() {
-		// TODO Auto-generated method stub
-		
+		stol.kartaNastol(deck.wezZTalii());
 	}
 
+	// do trzech widocznych kart dokladana jest 1 karta
 	private void turn() {
-				
+		stol.kartaNastol(deck.wezZTalii());
 	}
-
+	
+	// z talii na stol wykladane sa 3 karty wspolne widoczne dla wszystkich graczy
 	private void flop() {
-		deck.wezZTalii();
-//		stol.kartaNastol(karta);
-//		stol.kartaNastol(karta);
-//		stol.kartaNastol(karta);
+		for(int i = 0; i < 3; i++) {
+			stol.kartaNastol(deck.wezZTalii());
+		}
 		//sprawdzRankingGraczy();
 	}
 

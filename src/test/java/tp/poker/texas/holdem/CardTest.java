@@ -7,11 +7,11 @@ import junit.framework.TestCase;
 public class CardTest extends TestCase {
 	private Card karta;
 	
-	public void setUp() {
+	protected void setUp() {
 		karta = new Card(0, 0);
 	}
 	
-	public void tearDown() {
+	protected void tearDown() {
 		karta = null;
 	}
 	

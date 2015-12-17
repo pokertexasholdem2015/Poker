@@ -3,17 +3,20 @@ package tp.poker.texas.holdem;
 
 
 public abstract class Player {
-	public boolean DealerButton;
+	public boolean DealerButton; //[] = {false, false, false, false, false, false, false, false, false, false};
 	public boolean SmallBlind;
+	public boolean BigBlind;
 	public Card reka[] = new Card[7];
 	int uklad = 0;
 	private int zetony = 0;
 	
-	public abstract int BotBetStrategy(Table stol);
+	//public abstract int BotBetStrategy(Table stol);
 	
-	Player(){
-		DealerButton=false;
-		SmallBlind=false;
+	Player(/*Card[] reka*/){
+		//DealerButton=false;
+		//SmallBlind=false;
+		//reka = new Card[7];
+		//this.reka = reka;
 	}
 	
 	
