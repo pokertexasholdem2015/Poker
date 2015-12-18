@@ -14,6 +14,7 @@ public class Bot extends Player {
 		while(Wakcji=true){
 			
 			////// Zbieraj Karty //////
+			/*
 			for(int i=0; i<7;i++ ){
 				if (stol.reka[6]!=null){ // od zera liczac 7 kart = 2 w rece i 5 na stole
 					Wakcji=false;
@@ -24,6 +25,7 @@ public class Bot extends Player {
 					// dodaj karte do reki player bota
 				}
 			}
+			*/
 			/////////Licytuj przed ostatnia karta///////////
 			
 			CzyAkcja= los.nextInt(3);

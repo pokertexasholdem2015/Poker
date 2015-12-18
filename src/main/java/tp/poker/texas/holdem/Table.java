@@ -21,15 +21,25 @@ public class Table {
 		
 		talia = new Deck();
 		
-		
-		for(int i=0; i < 1; i++)
-		{
+	
+		// po 2 karty
 			for(int y = 0; y < gracze.length; y++)
 			{
 				if(gracze[y] != null)
 					pobierzKarte(gracze[y]);
 			}
-		}
+			for(int y = 0; y < gracze.length; y++)
+			{
+				if(gracze[y] != null)
+					pobierzKarte(gracze[y]);
+			}
+		
+		
+	
+	}
+	
+	public String pokazKarte(int miejsce){
+		return reka[miejsce%5].getKolor()+"/"+reka[miejsce%5].getNumFig();
 	}
 	
 public void AmmountOfBlinds(int b, int s){
@@ -140,6 +150,8 @@ public void AmmountOfBlinds(int b, int s){
 			}
 		}
 	}
+	
+
 	
 	public int kartaNastol(Card karta){
 		

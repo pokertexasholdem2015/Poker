@@ -180,46 +180,30 @@ public class KlientPoker implements Runnable {
 						sendMessage("MSG Komenda niedostepna. Poczekaj na swoja kolej.");
 				}
 				
-				else if(linia[0].equals("zamienkarty"))
-				{
-					if(k_svr.gracz_perm == Client_ID)
-					{
-						if(k_svr.etap == 3)
-						{
-							try{
-								if(Integer.parseInt(linia[1]) < 5 && Integer.parseInt(linia[1]) > 0)
-								{
-									for(int i = 0; i < Integer.parseInt(linia[1]); i++)
-									{
-										k_svr.stol.zamienKarte(k_svr.gracze[Client_ID], Integer.parseInt(linia[i+2]));
-									}
-									k_svr.sendMessageToAll("MSG Gracz "+Client_ID+" zamienil karty.");
-									k_svr.nextStepGame(false);
-								}
-								else if(Integer.parseInt(linia[1]) == 0)
-								{
-									k_svr.sendMessageToAll("MSG Gracz "+Client_ID+" nie zamienil kart.");
-									k_svr.nextStepGame(false);
-								}
-							}
-							catch(NumberFormatException e)
-							{
-								sendMessage("MSG Niewlasciwy format liczby.");
-							}
-						}
-						else
-							sendMessage("MSG Komenda niedostepna w tym etapie gry.");
-					}
-					else
-						sendMessage("MSG Komenda niedostepna. Poczekaj na swoja kolej.");
-				}
-				
-				else if(linia[0].equals("pokazkarty"))
+				else if(linia[0].equals("Stolpokazkarty"))
 				{
 					if(k_svr.etap >= 2 && k_svr.etap <= 4)
 					{
 						karty_send = "KRT";
-						for(int i=0; i < 5; i++)
+						for(int i=0; i < 2; i++)
+						{
+							karty_send += " "+k_svr.stol.pokazKarte(i);
+						}
+						sendMessage(karty_send);
+					}
+					else
+						sendMessage("MSG Komenda niedostepna.");
+					
+				}
+				
+				
+			/////////////////////////////////////////////////////////////////////////////////////////
+				else if(linia[0].equals("pokazkarty"))
+				{
+					if(k_svr.etap >= 2 && k_svr.etap <= 4)
+					{
+						karty_send = "KRT2";
+						for(int i=0; i < 2; i++)
 						{
 							karty_send += " "+k_svr.gracze[Client_ID].pokazKarte(i);
 						}

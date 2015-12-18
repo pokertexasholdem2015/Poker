@@ -16,7 +16,8 @@ public class SerwerPoker {
 	Player gracze[] = new Player[10];
 	BitSet moze_grac = new BitSet(10);
 	Table stol;
-	//Table stol = new Table(gracze[], small, big);
+	String karty_send;
+	
 	int graczDealer;
 	
 	// parametry gry
@@ -44,6 +45,8 @@ public class SerwerPoker {
 			System.exit (-1);
 		}
 	}
+	
+	
 	
 	// funkcja czekajaca na polaczenie wszystkich graczy i zaczynaj�ca gre
 	public void listenSocket() {
@@ -108,8 +111,12 @@ public class SerwerPoker {
 		
 		//zaklady obowiazkowe
 		if(etap == 1) {
-			stol = new Table(gracze);
+			stol = new Table(gracze); // Konstruktor wydaje 2 karty dla kazdego gracza
 			stol.giveZetony(zetonyKasyna);
+			
+			 /// Ma wyslac karty klientowi
+			sendMessageToAll("CMD START");
+		
 			for(int i = 0; i < ileKlientow+ileBotow; i++) {
 				if(gracze[i] != null)
 					moze_grac.set(i);
@@ -130,41 +137,128 @@ public class SerwerPoker {
 		gracze[graczDealer + 1].SmallBlind = true;
 		gracze[graczDealer + 2].BigBlind = true;
 		
-		// rozdanie po 2 karty dla kazdego gracza z potasowanej wczesniej talii
-		for(int i = 0; i < liczbaGraczy; i++) {
-			//reka[0] = deck.wezZTalii();
-			//reka[1] = deck.wezZTalii();
-			//gracze[i].odbierzKarte(reka[0]);
-			//gracze[i].odbierzKarte(reka[1]);
-			// POPRAWIONE
-			stol.pobierzKarte(gracze[i]);
-			stol.pobierzKarte(gracze[i]);
-		}
+		
+	
+		
+		///// Wylozenie 3 kart na stol i wyslanie do klientow
+		
+		turn(3);
+		 /// Ma wyslac karty stolu klientowi
+			
+			
+		sendMessageToAll("CMD START2");
 		
 		start_game = Math.abs((int)System.currentTimeMillis())%ileKlientow;
 		while(moze_grac.get(start_game) == false) {
 			start_game = (start_game+1)%ileKlientow;
 		}
 		gracz_perm = start_game;
-		sendMessageToAll("CMD START");
+		
+		//sendMessageToAll("CMD START"); // deprecated 
+		//sendMessageToAll("CMD START2");
 		sendMessageToAll("MSG Karty zostaly rozdane.");
 		sendMessageToAll("MSG Gre zaczyna Gracz "+gracz_perm+".");
 		klient[gracz_perm].sendMessage("MSG Zaczynasz gre.");
 		return 1;
 		}
 		// pierwsza i druga runda licytacji
-		else if(etap >= 2 && etap <= 4) {
+		else if(etap ==3) {
+			
+gracz_perm = (moze_grac.nextSetBit(gracz_perm+1) < ileKlientow && moze_grac.nextSetBit(gracz_perm+1) != -1)?moze_grac.nextSetBit(gracz_perm+1):moze_grac.nextSetBit(0);
+			
+			if(!moze_grac.get(start_game))
+				start_game = (moze_grac.nextSetBit(start_game) >= ileKlientow)? moze_grac.nextSetBit(0) : moze_grac.nextSetBit(start_game) ;
+			if(start_game == -1 || start_game >= ileKlientow) return 1;//System.exit(-1);//return 1;
+			if(gracz_perm == start_game && !przel)
+			{
+				int dec_bota = 0;
+				//--------------------------------------------------------------------------------------
+				for(int i = 0; i < ileBotow; i++)
+				{
+					if(!moze_grac.get(ileKlientow+i)) continue;
+					if(etap == 2 || etap == 4)
+					{
+						dec_bota = gracze[ileKlientow+i].BotBetStrategy(stol);
+						if(dec_bota == 0)
+						{
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wycofuje sie z gry.");
+							moze_grac.clear(ileKlientow+i);
+						}
+						else if(dec_bota == 1)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wyrownuje.");
+						else if(dec_bota == 2)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) podbija do "+stol.stawka+".");
+						else if(dec_bota == 3)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) czeka.");
+						else if(dec_bota == 4)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wchodzi ALL IN.");
+					}
+			
+				}
+				//--------------------------------------------------------------------------------------
+			}
+			// kolejna karta
+			turn(1);
+			
+			sendMessageToAll("CMD START2");
+			
+		}
+		else if(etap == 4) {
 			//gracze[graczDealer + 3]
 			// teraz gracz na lewo od gracza z big blind czyli gracz gracze[graczDealer + 3] rozpoczyna pierwsza runde licytacji
-			flop();
+			
+			
+			
 			// teraz gracz z small blind zaczyna druga runde licytacji
-			turn();
+			
+			
+			
 			// teraz gracz z small blind rozpoczyna trzecia runde licytacji
-			river();
+			
 			// teraz czwartą rundę rozpoczyna gracz z small blind
+			
+			if(!moze_grac.get(start_game))
+				start_game = (moze_grac.nextSetBit(start_game) >= ileKlientow)? moze_grac.nextSetBit(0) : moze_grac.nextSetBit(start_game) ;
+			if(start_game == -1 || start_game >= ileKlientow) return 1;//System.exit(-1);//return 1;
+			if(gracz_perm == start_game && !przel)
+			{
+				int dec_bota = 0;
+				//--------------------------------------------------------------------------------------
+				for(int i = 0; i < ileBotow; i++)
+				{
+					if(!moze_grac.get(ileKlientow+i)) continue;
+					if(etap == 2 || etap == 4)
+					{
+						dec_bota = gracze[ileKlientow+i].BotBetStrategy(stol);
+						if(dec_bota == 0)
+						{
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wycofuje sie z gry.");
+							moze_grac.clear(ileKlientow+i);
+						}
+						else if(dec_bota == 1)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wyrownuje.");
+						else if(dec_bota == 2)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) podbija do "+stol.stawka+".");
+						else if(dec_bota == 3)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) czeka.");
+						else if(dec_bota == 4)
+							sendMessageToAll("MSG Gracz "+(ileKlientow+i)+" (Bot) wchodzi ALL IN.");
+					}
+			
+				}
+				//--------------------------------------------------------------------------------------
+			}
+			
+			turn(1);
+			
+			sendMessageToAll("CMD START2");
+			
 		}
+		
+		
 		// wylonienie zwyciezcy
 		else if(etap == 5) {
+			stol.OstatniEtapKart(gracze); // dodanie kart dla graczy 
 			// na podstawie rankingu ukladow wylaniany jest zwyciezca
 			winners = stol.compareAllPlayers(gracze);
 			winners.and(moze_grac);
@@ -199,24 +293,25 @@ public class SerwerPoker {
 	}
 	
 
-	// dokladana jest 5 karta
-	private void river() {
-		stol.kartaNastol(deck.wezZTalii());
-		
-	}
-
-	// do trzech widocznych kart dokladana jest 1 karta
-	private void turn() {
-		stol.kartaNastol(deck.wezZTalii());
-	}
 	
-	// z talii na stol wykladane sa 3 karty wspolne widoczne dla wszystkich graczy
-	private void flop() {
-		for(int i = 0; i < 3; i++) {
-			stol.kartaNastol(deck.wezZTalii());
+	
+	private void turn(int ileKart) {
+		
+		for(int i=0; i<ileKart; i++){
+			
+			Card karta = stol.talia.wezZTalii();
+				stol.kartaNastol(karta);
+
+				if(karta != null)
+				{
+					stol.talia.wrzucDoTalii(karta);
+					
+				}
+				
+			}
 		}
 		//sprawdzRankingGraczy();
-	}
+	
 
 	
 
@@ -253,3 +348,4 @@ public class SerwerPoker {
 		}
 	}
 }
+
