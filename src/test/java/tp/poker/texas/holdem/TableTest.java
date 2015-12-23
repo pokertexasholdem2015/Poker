@@ -32,6 +32,15 @@ public class TableTest extends TestCase {
 	}
 	
 	@Test
+	public void testMtdPorownajWszystGraczy() {
+		
+	}
+	
+	
+	
+	
+	
+	@Test
 	public void testMtdUnsetButtons() {
 		//gracze[0].DealerButton = true;
 		assertNotNull(stol);

@@ -19,17 +19,21 @@ public abstract class Player {
 	
 	public void zniszczKarty()
 	{
-		for(int i=0; i < 7; i++)
+		for(int i=0; i < 5; i++)
 			reka[i] = null;
 	}
 	
 	public Card odbierzKarte(Card karta)
 	{
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (reka[i] == null) {
 				reka[i] = karta;
-				break;
-					
+				if(reka[4] != null)
+				{
+					CardSort();
+					rangaUkladu();
+				}
+				return null;
 			}
 		}
 		return karta;
@@ -65,8 +69,8 @@ public abstract class Player {
 	/////////////////////////////
 	public void CardSort() {
 		Card pomoc = null;
-		for (int i = 0; i < 7; i++) {
-			if (i + 1 < 7)
+		for (int i = 0; i < 5; i++) {
+			if (i + 1 < 5)
 				if (reka[i] != null && reka[i + 1] != null) {
 					if (reka[i].getNumFig() > reka[i + 1].getNumFig()) {
 						pomoc = reka[i];
@@ -79,7 +83,7 @@ public abstract class Player {
 		}
 	}
 	
-	private boolean czyKolorSame() {
+	public boolean czyKolorSame() {
 		if (reka[0].getKolor() == reka[1].getKolor())
 			if (reka[1].getKolor() == reka[2].getKolor())
 				if (reka[2].getKolor() == reka[3].getKolor())
@@ -243,6 +247,12 @@ public abstract class Player {
 				if (uklad == 0)
 					uklad = 9;
 				return uklad;
+			}
+			
+			public String pokazUklad() {
+				final String[] rodzUkla = { "", "Poker", "Kareta", "Ful", "Kolor",
+						"Strit", "Trojka", "Dwie pary", "Para", "Najwyzsza karta" };
+				return rodzUkla[uklad];
 			}
 
 }

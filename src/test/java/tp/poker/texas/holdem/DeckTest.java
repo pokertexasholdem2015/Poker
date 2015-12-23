@@ -8,7 +8,7 @@ public class DeckTest extends TestCase {
 	private Deck talia;
 	
 	public void setUp() {
-		talia = new Deck();
+		talia = Deck.pobierzTalie();
 	}
 	
 	public void tearDown() {

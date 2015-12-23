@@ -19,7 +19,7 @@ public class Table {
 	{
 		
 		
-		talia = new Deck();
+		talia = Deck.pobierzTalie();
 		
 	
 		// po 2 karty
@@ -243,6 +243,45 @@ public void AmmountOfBlinds(int b, int s){
 		gracz.reka[NrRek%5] = null;
 		pobierzKarte(gracz);
 		return true;
+	}
+	
+	
+	public int porownajWszystGraczy(Player gracze[]) {
+		int wygrywajacyGracz=0;//
+		boolean remis = false;
+		
+		for(int i=0; i < gracze.length-1; i++)
+		{
+			if(gracze[i] != null && gracze[i+1] != null)
+			{
+				if(gracze[i].porownajUklady(gracze[i+1]) == 1)
+				{
+					if(gracze[i].porownajUklady(gracze[wygrywajacyGracz]) == 1 && i != wygrywajacyGracz)
+					{
+						wygrywajacyGracz = i;
+						remis = false;
+					}
+				}
+				else if(gracze[i].porownajUklady(gracze[i+1]) == -1)
+				{
+					if(gracze[i+1].porownajUklady(gracze[wygrywajacyGracz]) == 1)
+					{
+						wygrywajacyGracz = i+1;
+						remis = false;
+					}
+					else if(gracze[i+1].porownajUklady(gracze[wygrywajacyGracz]) == 0)
+						remis = true;
+				}
+				else
+				{
+					wygrywajacyGracz = i;
+					remis = true;
+				}
+				
+			}
+		}
+		if(remis) wygrywajacyGracz = 5;
+		return wygrywajacyGracz;
 	}
 	
 	

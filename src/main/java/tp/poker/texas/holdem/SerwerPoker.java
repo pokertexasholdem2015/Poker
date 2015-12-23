@@ -10,7 +10,7 @@ import java.util.Random;
 public class SerwerPoker {
 	ServerSocket socket_serwer = null;
 	KlientPoker klient[] = new KlientPoker[10];
-	Deck deck = new Deck();
+	Deck deck = Deck.pobierzTalie();
 	Card reka[] = new Card[7];
 	
 	Player gracze[] = new Player[10];
@@ -164,7 +164,7 @@ public class SerwerPoker {
 		// pierwsza i druga runda licytacji
 		else if(etap ==3) {
 			
-gracz_perm = (moze_grac.nextSetBit(gracz_perm+1) < ileKlientow && moze_grac.nextSetBit(gracz_perm+1) != -1)?moze_grac.nextSetBit(gracz_perm+1):moze_grac.nextSetBit(0);
+			gracz_perm = (moze_grac.nextSetBit(gracz_perm+1) < ileKlientow && moze_grac.nextSetBit(gracz_perm+1) != -1)?moze_grac.nextSetBit(gracz_perm+1):moze_grac.nextSetBit(0);
 			
 			if(!moze_grac.get(start_game))
 				start_game = (moze_grac.nextSetBit(start_game) >= ileKlientow)? moze_grac.nextSetBit(0) : moze_grac.nextSetBit(start_game) ;

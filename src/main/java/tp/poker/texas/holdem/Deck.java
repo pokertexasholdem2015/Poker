@@ -5,8 +5,9 @@ import java.util.Random;
 
 public class Deck {
 	private ArrayList<Card> karty;
+	private static Deck talia;
 	
-	Deck() {
+	private Deck() {
 		karty = new ArrayList<Card>();
 		
 		for(int i = 0; i < 4; i++) {
@@ -27,6 +28,13 @@ public class Deck {
 			karty.set(idx1, karty.get(idx2));
 			karty.set(idx2, pomoc);
 		}
+	}
+	
+	public static Deck pobierzTalie() {
+		if(talia == null) {
+			talia = new Deck();
+		}
+		return talia;
 	}
 	
 	public Card wezZTalii() {
