@@ -1,10 +1,7 @@
 package tp.poker.texas.holdem;
 
-import static org.junit.Assert.*;
-
 import java.util.BitSet;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -21,7 +18,7 @@ public class TableTest extends TestCase {
 	private Table stol;
 	private int zetony = 5;
 	
-	protected void setUp() throws Exception {
+	protected final void setUp() throws Exception {
 		gracz = new Human();
 		gracz2 = new Human();
 		gracz3 = new Human();
@@ -32,7 +29,7 @@ public class TableTest extends TestCase {
 		stol = new Table(gracze);
 	}
 	
-	protected void tearDown() {
+	protected final void tearDown() {
 		gracz = null;
 		gracz2 = null;
 		gracz3 = null;
@@ -43,7 +40,7 @@ public class TableTest extends TestCase {
 	
 	
 	@Test
-	public void testMtdUnsetButtons() {
+	public final void testMtdUnsetButtons() {
 		gracz.DealerButton = true;
 		gracz.SmallBlind = true;
 		stol.UnsetButtons(gracz);
@@ -53,7 +50,7 @@ public class TableTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdSetBigBlind() {
+	public final void testMtdSetBigBlind() {
 		gracz.BigBlind = false;
 		stol.SetBigBlind(gracz);
 		boolean zmienionyBigB = gracz.BigBlind;
@@ -62,7 +59,7 @@ public class TableTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdSetSmallBlind() {
+	public final void testMtdSetSmallBlind() {
 		gracz.SmallBlind = false;
 		stol.SetSmallBlind(gracz);
 		boolean zmienionySmallB = gracz.SmallBlind;
@@ -71,23 +68,23 @@ public class TableTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdGetPula() {
+	public final void testMtdGetPula() {
 		stol.giveZetony(zetony);
 		assertEquals(5, stol.getPula());
 	}
 	
 	@Test
-	public void testMtdGiveZetony() {
+	public final void testMtdGiveZetony() {
 		stol.giveZetony(zetony);
 	}
 	
 	@Test
-	public void testOddajPuleWygr() {
+	public final void testOddajPuleWygr() {
 		stol.oddajPuleWygr(gracz);
 	}
 	
 	@Test
-	public void testMtdPorownajWszystGraczy() {
+	public final void testMtdPorownajWszystGraczy() {
 		// gracz ma uklad Trojka
 		gracz.odbierzKarte(new Card(0, 9));
 		gracz.odbierzKarte(new Card(1, 9));
@@ -127,7 +124,7 @@ public class TableTest extends TestCase {
 		System.out.println("Najlepszy uklad ma gracz: " + najlepszy);
 	}
 	
-	public void testMtdCompareAllPlayers() {
+	public final void testMtdCompareAllPlayers() {
 		// gracz ma uklad Trojka
 		gracz.odbierzKarte(new Card(0, 9));
 		gracz.odbierzKarte(new Card(1, 9));

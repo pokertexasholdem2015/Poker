@@ -3,9 +3,9 @@ package tp.poker.texas.holdem;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Deck {
+public final class Deck {
 	private ArrayList<Card> karty;
-	private volatile static Deck talia;
+	private static volatile Deck talia;
 	
 	private Deck() {
 		karty = new ArrayList<Card>();
@@ -45,7 +45,7 @@ public class Deck {
 		return karty.remove(0);
 	}
 	
-	public void wrzucDoTalii(Card karta) {
+	public void wrzucDoTalii(final Card karta) {
 		karty.add(karta);
 	}
 	

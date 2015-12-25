@@ -7,23 +7,23 @@ import junit.framework.TestCase;
 public class DeckTest extends TestCase {
 	private Deck talia;
 	
-	public void setUp() {
+	public final void setUp() {
 		talia = Deck.pobierzTalie();
 	}
 	
-	public void tearDown() {
+	public final void tearDown() {
 		talia = null;
 	}
 	
 	//Test czy obiekt klasy Deck jest tworzony.
 	@Test
-	public void testTalii() {
+	public final void testTalii() {
 		assertNotNull(talia);
 	}
 	
 	//Test wyciagniecia 4 kart z talii i wyswietlenie talii po wyciagnieciu tych kart.
 	@Test
-	public void testWezZTalii() {
+	public final void testWezZTalii() {
 		talia.pokazKarty();
 		for(int i = 0; i < 4; i++) {
 			talia.wezZTalii();
@@ -33,7 +33,7 @@ public class DeckTest extends TestCase {
 		
 	//Test metody, ktora wrzuca do talii karte.
 	@Test
-	public void testMtdWrzucDoTalii() {
+	public final void testMtdWrzucDoTalii() {
 		Card karta1, karta2, karta3;
 		karta1 = new Card(1, 0);
 		karta2 = new Card(2, 11);
@@ -49,7 +49,7 @@ public class DeckTest extends TestCase {
 	
 	//Test metody, ktora pokazuje potasowane karty.
 	@Test
-	public void testMtdPokazKarty() {
+	public final void testMtdPokazKarty() {
 		talia.pokazKarty();
 	}
 }

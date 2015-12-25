@@ -15,11 +15,11 @@ public class KlientPokerTest {
 	private String serverAddress ="";
 	
 	
-	public void setUp() {
+	public final void setUp() {
 		socket = new Socket();	
 	}
 	
-	public void tearDown() {
+	public final void tearDown() {
 		socket = null;
 	}
 	

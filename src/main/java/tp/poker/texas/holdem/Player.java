@@ -17,13 +17,13 @@ public abstract class Player {
 	
 
 	
-	public void zniszczKarty()
+	public final void zniszczKarty()
 	{
 		for(int i=0; i < 5; i++)
 			reka[i] = null;
 	}
 	
-	public Card odbierzKarte(Card karta)
+	public final Card odbierzKarte(final Card karta)
 	{
 		for (int i = 0; i < 5; i++) {
 			if (reka[i] == null) {
@@ -39,38 +39,43 @@ public abstract class Player {
 		return karta;
 	}
 	
-	public void pokazKarty() {
+	public final void pokazKarty() {
 		for (int i = 0; i < 4; i++) {
-			if (reka[i] != null)
+			if (reka[i] != null) {
 				System.out.println(i+1 + " | " + reka[i].nazwaKarty());
+			}
 		}
 	}
 	
-	public String pokazKarte(int miejsce){
+	public final String pokazKarte(final int miejsce){
 		return reka[miejsce%2].getKolor()+"/"+reka[miejsce%2].getNumFig();
 	}
 
 	//metody uzywane tylko przez Table
-	public int wezZetony(int wartosc) {
-		if(wartosc > zetony || wartosc < 0) return 0;
+	public final int wezZetony(final int wartosc) {
+		if(wartosc > zetony || wartosc < 0) {
+			return 0;
+		}
 		zetony = zetony-wartosc;
 		return wartosc;
 	}
 	
-	public boolean dajZetony(int wartosc) {
-		if(wartosc < 0) return false;
+	public final boolean dajZetony(final int wartosc) {
+		if(wartosc < 0) {
+			return false;
+		}
 		zetony += wartosc;
 		return true;
 	}
 	
-	public int Zetony() {
+	public final int Zetony() {
 		return zetony;
 	}
 	/////////////////////////////
-	public void CardSort() {
+	public final void CardSort() {
 		Card pomoc = null;
 		for (int i = 0; i < 5; i++) {
-			if (i + 1 < 5)
+			if (i + 1 < 5) {
 				if (reka[i] != null && reka[i + 1] != null) {
 					if (reka[i].getNumFig() > reka[i + 1].getNumFig()) {
 						pomoc = reka[i];
@@ -80,61 +85,71 @@ public abstract class Player {
 						break;
 					}
 				}
+			}
 		}
 	}
 	
-	public boolean czyKolorSame() {
-		if (reka[0].getKolor() == reka[1].getKolor())
-			if (reka[1].getKolor() == reka[2].getKolor())
-				if (reka[2].getKolor() == reka[3].getKolor())
-					if (reka[3].getKolor() == reka[4].getKolor())
+	public final boolean czyKolorSame() {
+		if (reka[0].getKolor() == reka[1].getKolor()) {
+			if (reka[1].getKolor() == reka[2].getKolor()) {
+				if (reka[2].getKolor() == reka[3].getKolor()) {
+					if (reka[3].getKolor() == reka[4].getKolor()) {
 						return true;
+					}
+				}
+			}
+		}
 		return false;
 	}
 	
 	// --------------------------------------------
-			public int porownajUklady(Player gracz) {
+			public final int porownajUklady(final Player gracz) {
 				
 				int najwKarta1[] = new int[2];
 				int najwKarta2[] = new int[2];
 				
-				if (uklad < gracz.uklad)
+				if (uklad < gracz.uklad) {
 					return 1;
-				else if (uklad > gracz.uklad)
+				} else if (uklad > gracz.uklad) {
 					return -1;
-				else if (uklad == gracz.uklad) {
+				} else if (uklad == gracz.uklad) {
 					if (uklad == 1) {
-						if (reka[4].getNumFig() > gracz.reka[4].getNumFig())
+						if (reka[4].getNumFig() > gracz.reka[4].getNumFig()) {
 							return 1;
-						else if (reka[4].getNumFig() < gracz.reka[4].getNumFig())
+						} else if (reka[4].getNumFig() < gracz.reka[4].getNumFig()) {
 							return -1;
+						}
 					} else if (uklad == 2 || uklad == 3 || uklad == 6) {
-						if (reka[2].getNumFig() > gracz.reka[2].getNumFig())
+						if (reka[2].getNumFig() > gracz.reka[2].getNumFig()) {
 							return 1;
-						else if (reka[2].getNumFig() < gracz.reka[2].getNumFig())
+						} else if (reka[2].getNumFig() < gracz.reka[2].getNumFig()) {
 							return -1;
+						}
 					}
 					else if (uklad == 4) {
 						for (int i = 4; i >= 0; i--) {
-							if (reka[i].getNumFig() > gracz.reka[i].getNumFig())
+							if (reka[i].getNumFig() > gracz.reka[i].getNumFig()) {
 								return 1;
-							else if (reka[i].getNumFig() < gracz.reka[i].getNumFig())
+							} else if (reka[i].getNumFig() < gracz.reka[i].getNumFig()) {
 								return -1;
+							}
 						}
 					} else if (uklad == 5) {
-						if (reka[4].getNumFig() > gracz.reka[4].getNumFig())
+						if (reka[4].getNumFig() > gracz.reka[4].getNumFig()) {
 							return 1;
-						else if (reka[4].getNumFig() < gracz.reka[4].getNumFig())
+						} else if (reka[4].getNumFig() < gracz.reka[4].getNumFig()) {
 							return -1;
+						}
 					} else if (uklad == 7) {
-						if (reka[1].getNumFig() > gracz.reka[1].getNumFig())
+						if (reka[1].getNumFig() > gracz.reka[1].getNumFig()) {
 							return 1;
-						else if (reka[1].getNumFig() < gracz.reka[1].getNumFig())
+						} else if (reka[1].getNumFig() < gracz.reka[1].getNumFig()) {
 							return -1;
-						else if (reka[3].getNumFig() > gracz.reka[3].getNumFig())
+						} else if (reka[3].getNumFig() > gracz.reka[3].getNumFig()) {
 							return 1;
-						else if (reka[3].getNumFig() < gracz.reka[3].getNumFig())
+						} else if (reka[3].getNumFig() < gracz.reka[3].getNumFig()) {
 							return -1;
+						}
 					} else if (uklad == 8) {
 						
 						for(int i=0; i < 4; i++)
@@ -151,27 +166,29 @@ public abstract class Player {
 							}
 						}
 						
-						if(najwKarta1[0] > najwKarta2[0])
+						if(najwKarta1[0] > najwKarta2[0]) {
 							return 1;
-						else if(najwKarta1[0] < najwKarta2[0])
+						} else if(najwKarta1[0] < najwKarta2[0]) {
 							return -1;
-						else if(najwKarta1[0] == najwKarta2[0])
+						} else if(najwKarta1[0] == najwKarta2[0])
 						{
-							if(najwKarta1[1] == najwKarta2[1])
+							if(najwKarta1[1] == najwKarta2[1]) {
 								return 0;
-							else if(najwKarta1[1] < najwKarta2[1])
+							} else if(najwKarta1[1] < najwKarta2[1]) {
 								return -1;
-							else if(najwKarta1[1] > najwKarta2[1])
+							} else if(najwKarta1[1] > najwKarta2[1]) {
 								return 1;
+							}
 						}
 						
 						
 
 					} else if (uklad == 9) {
-						if (reka[4].getNumFig() > gracz.reka[4].getNumFig())
+						if (reka[4].getNumFig() > gracz.reka[4].getNumFig()) {
 							return 1;
-						else if (reka[4].getNumFig() < gracz.reka[4].getNumFig())
+						} else if (reka[4].getNumFig() < gracz.reka[4].getNumFig()) {
 							return -1;
+						}
 					}
 				}
 				return 0;
@@ -179,7 +196,7 @@ public abstract class Player {
 
 			// --------------------------------------------
 			
-			public int rangaUkladu() {
+			public final int rangaUkladu() {
 				int ts = 0;
 				int kolejne = 0;
 				for (int i = 0; i < 4; i++) {
@@ -219,11 +236,13 @@ public abstract class Player {
 						} else if (reka[i].getNumFig() != reka[i + 1].getNumFig()) {
 							if (reka[i].getNumFig() + 1 == reka[i + 1].getNumFig()) {
 								kolejne++;
-								if (kolejne == 4)
-									if (czyKolorSame())
+								if (kolejne == 4) {
+									if (czyKolorSame()) {
 										uklad = 1;
-									else
+									} else {
 										uklad = 5;
+									}
+								}
 								continue;
 							}
 							if (uklad == 8 && ts == 1) {
@@ -244,12 +263,13 @@ public abstract class Player {
 						}
 					}
 				}
-				if (uklad == 0)
+				if (uklad == 0) {
 					uklad = 9;
+				}
 				return uklad;
 			}
 			
-			public String pokazUklad() {
+			public final String pokazUklad() {
 				final String[] rodzUkla = { "", "Poker", "Kareta", "Ful", "Kolor",
 						"Strit", "Trojka", "Dwie pary", "Para", "Najwyzsza karta" };
 				return rodzUkla[uklad];

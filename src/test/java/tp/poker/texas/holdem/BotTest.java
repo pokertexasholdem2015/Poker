@@ -2,7 +2,7 @@ package tp.poker.texas.holdem;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import tp.poker.texas.holdem.Bot;
+
 import junit.framework.TestCase;
 
 public class BotTest extends TestCase {
@@ -11,7 +11,7 @@ public class BotTest extends TestCase {
 	private Card karta1, karta2,karta3,karta4,karta5; 
 	
 	@BeforeClass
-	public void setUpBeforeClass() throws Exception {
+	public final void setUpBeforeClass() throws Exception {
 		// ustawianie kart do sprawdzenia reakcji na uklad = kolor
 		karta1 = new Card(0, 0);
 		karta2 = new Card(0, 1);
@@ -32,7 +32,7 @@ public class BotTest extends TestCase {
 	
 	@Test
 	
-	public void  TestLicytacji() {
+	public void  testLicytacji() {
 		//zwraca 2 dla licytacji przy ukladzie kolor 
 //		assertEquals(2, gracze[0].BotBetStrategy(stol));
 	}

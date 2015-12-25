@@ -12,7 +12,7 @@ public class PlayerTest extends TestCase {
 	private Card kartaDwojkaTrefl;
 	private int zetony;
 	
-	protected void setUp() throws Exception {
+	protected final void setUp() throws Exception {
 		gracz = new Human();
 		gracz2 = new Human();
 		talia = Deck.pobierzTalie();
@@ -21,7 +21,7 @@ public class PlayerTest extends TestCase {
 		zetony = 50;
 	}
 	
-	protected void tearDown() {
+	protected final void tearDown() {
 		gracz = null;
 		gracz2 = null;
 		talia = null;
@@ -32,7 +32,7 @@ public class PlayerTest extends TestCase {
 	
 	
 	@Test
-	public void testMtdOdbierzKarte() {
+	public final void testMtdOdbierzKarte() {
 		//gracz.pokazKarty();
 		//gracz.pokazKarte(0);
 		assertEquals(gracz.odbierzKarte(kartaDwojkaTrefl), gracz.odbierzKarte(new Card(0, 0)));
@@ -40,8 +40,8 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdZniszczKarty() {
-		for(int i = 0; i < 5; i++) {
+	public final void testMtdZniszczKarty() {
+		for (int i = 0; i < 5; i++) {
 			reka[i] = gracz.odbierzKarte(talia.wezZTalii());	
 		}
 		System.out.println("Utworzone karty gracza to: ");
@@ -53,15 +53,15 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdPokazKarty() {
-		for(int i = 0; i < 5; i++) {
+	public final void testMtdPokazKarty() {
+		for (int i = 0; i < 5; i++) {
 			reka[i] = gracz.odbierzKarte(talia.wezZTalii());	
 		}
 		gracz.pokazKarty();
 	}
 	
 	@Test
-	public void testMtdPokazKarte() {
+	public final void testMtdPokazKarte() {
 		gracz.odbierzKarte(new Card(0, 0));
 		gracz.odbierzKarte(new Card(0, 1));
 		assertEquals("0/0", gracz.pokazKarte(0));
@@ -69,13 +69,13 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdCardSort() {
+	public final void testMtdCardSort() {
 /*		reka[0] = gracz.odbierzKarte(new Card(0, 3));
 		reka[1] = gracz.odbierzKarte(new Card(0, 1));
 		reka[2] = gracz.odbierzKarte(new Card(0, 4));
 		reka[3] = gracz.odbierzKarte(new Card(0, 0));
 		reka[4] = gracz.odbierzKarte(new Card(0, 2));*/
-		for(int i = 0; i < 5; i++) {
+		for (int i = 0; i < 5; i++) {
 			reka[i] = gracz.odbierzKarte(talia.wezZTalii());	
 		}
 		
@@ -84,7 +84,7 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdCzyKolorSame() {
+	public final void testMtdCzyKolorSame() {
 		reka[0] = gracz.odbierzKarte(new Card(0, 0));
 		reka[1] = gracz.odbierzKarte(new Card(0, 1));
 		reka[2] = gracz.odbierzKarte(new Card(0, 2));
@@ -92,7 +92,7 @@ public class PlayerTest extends TestCase {
 		reka[4] = gracz.odbierzKarte(new Card(0, 4));
 		assertTrue(gracz.czyKolorSame());
 		gracz.zniszczKarty();
-		for(int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			reka[i] = gracz.odbierzKarte(talia.wezZTalii());	
 		}
 		reka[3] = gracz.odbierzKarte(new Card(1, 0));
@@ -101,7 +101,7 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdPokazUklad() {
+	public final void testMtdPokazUklad() {
 		//Najwyższa karta: dowolny układ nienależąca do żadnej z powyższych kategorii
 		gracz.odbierzKarte(new Card(0, 12));
 		gracz.odbierzKarte(new Card(1, 11));
@@ -221,7 +221,7 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdPorownajUklady() {
+	public final void testMtdPorownajUklady() {
 		gracz.odbierzKarte(new Card(0, 0));
 		gracz.odbierzKarte(new Card(0, 1));
 		gracz.odbierzKarte(new Card(0, 2));
@@ -274,7 +274,7 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdWezZetony() {
+	public final void testMtdWezZetony() {
 		gracz.dajZetony(zetony);
 		int wzieteZetony = gracz.wezZetony(20);
 		int zetonyPoOdebraniu20 = gracz.Zetony();
@@ -283,23 +283,23 @@ public class PlayerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdDajZetony() {
+	public final void testMtdDajZetony() {
 		gracz.dajZetony(zetony);
 		int zetonyKtoreDostalGracz = gracz.Zetony();
 		assertEquals(50, zetonyKtoreDostalGracz);
 		
 		zetony = -1;
-		if(zetony < 0) {
+		if (zetony < 0) {
 			assertFalse(gracz.dajZetony(zetony));
 		}
 		zetony = 1;
-		if(zetony > 0) {
+		if (zetony > 0) {
 			assertTrue(gracz.dajZetony(zetony));
 		}
 	}
 	
 	@Test
-	public void testMtdZetony() {
+	public final void testMtdZetony() {
 		gracz.dajZetony(zetony);
 		assertEquals(50, gracz.Zetony());
 	}

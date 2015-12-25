@@ -21,14 +21,14 @@ public class KlientPoker implements Runnable {
 	String karty_send;
 	boolean flaga=true;
 
-	KlientPoker(Socket socket, SerwerPoker server) {
+	KlientPoker(final Socket socket, final SerwerPoker server) {
 		socket_klient = socket;
 	    k_svr = server;
 	    t = new Thread(this);
 	    t.start();
 	}
 
-	public void run() {	
+	public final void run() {	
 		try {
 			dane_przychodzace = new BufferedReader (new InputStreamReader (socket_klient.getInputStream()));
 			dane_wychodzace = new PrintWriter (socket_klient.getOutputStream(), true);
@@ -41,7 +41,9 @@ public class KlientPoker implements Runnable {
 		while (flaga) {
 			try {
 				linia = dane_przychodzace.readLine().split(" ");
-				if(!k_svr.moze_grac.get(Client_ID) || k_svr.etap == 1) continue;
+				if(!k_svr.moze_grac.get(Client_ID) || k_svr.etap == 1) {
+					continue;
+				}
 				// CHECK
 				if(linia[0].equals("check"))
 				{
@@ -234,7 +236,7 @@ public class KlientPoker implements Runnable {
 		}
 	}
 		
-		public void sendMessage(String wiadomosc)
+		public final void sendMessage(final String wiadomosc)
 		{
 			try{
 				dane_wychodzace = new PrintWriter(socket_klient.getOutputStream(), true);
@@ -247,20 +249,22 @@ public class KlientPoker implements Runnable {
 		}
 		
 		@SuppressWarnings("deprecation")
-		public void disconnectClient() {
+		public final void disconnectClient() {
 			try {
 				System.out.println("Rozlaczenie Gracza "+Client_ID);
 				k_svr.sendMessageToAll("MSG Gracz "+Client_ID+" zostal rozlaczony.");
 				k_svr.gracze[Client_ID] = null;
 				k_svr.moze_grac.clear(Client_ID);
-				if(Client_ID == k_svr.gracz_perm)
+				if(Client_ID == k_svr.gracz_perm) {
 					k_svr.nextStepGame(true);
+				}
 				k_svr.klient[Client_ID] = null;
 				socket_klient.close();
 				t.stop();
 			}
 			catch(IOException e){
 				System.out.println ("Rozlaczenie klienta "+socket_klient.getRemoteSocketAddress()+" niepowiadlo sie");
+			} finally {
 			}
 		}
 }

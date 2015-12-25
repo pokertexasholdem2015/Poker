@@ -27,7 +27,7 @@ public class SerwerPokerTest extends TestCase {
 	
 
 	@BeforeClass
-	public void setUpBeforeClass() throws Exception {
+	public final void setUpBeforeClass() throws Exception {
 		// do serwera
 		socket_serwer = null;
 		klient = new KlientPoker[10];
@@ -40,7 +40,7 @@ public class SerwerPokerTest extends TestCase {
 	}
 	
 	@Test
-	public void testMtdNextStepGame() {
+	public final void testMtdNextStepGame() {
 		serwer = new SerwerPoker(3535);
 		int x = serwer.nextStepGame(true);
 	}
@@ -53,7 +53,7 @@ public class SerwerPokerTest extends TestCase {
 	
 	//Uruchomienie serwera
 	@Test(expected=NumberFormatException.class)
-	public void testMtdMain() {
+	public final void testMtdMain() {
 		SerwerPoker.main(new String[] {ileKlientow, ileBotow, iloscZetonow, wysokoscWpisowego});
 	}
 }

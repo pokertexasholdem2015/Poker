@@ -9,8 +9,9 @@ public class PlayerComparsionTest {
 	
 	 static Table stol = null; // 1,2,10,6,5
 	 static Table stol2 = null;// 4,3,7,8,9
-	 static Player gracze[];//= new Player[4];
-	 static Player gracze2[];//= new Player[4];
+	// private Human gracz1,gracz2,gracz3,gracz4,gracz5;
+	 static Human gracze[];//= new Player[4];
+	 static Human gracze2[];//= new Player[4];
 	private static Card karty1[]; // kolor
 	private static Card karty2[]; // full 2x as 3x krol
 	private static Card karty3[]; // najwyzsza 
@@ -28,11 +29,11 @@ public class PlayerComparsionTest {
 		
 	// Tablice Graczy //////
 		
-		Player gracze[] = new Player[4];
-		Player gracze2[] = new Player[4];
+		Human gracze[] = new Human[4];
+		Human gracze2[] = new Human[4];
 		
 		
-	// Gracze w Tablicach
+	// Gracze w Tablicach 
 	try {
 		for(int i=0; i<=4; i++){
 		gracze[i] = new Human();

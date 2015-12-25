@@ -5,5 +5,5 @@ public class Human extends Player {
 		reka = new Card[5];
 	}
 	
-	public int BotBetStrategy(Table stol){return 0;}
+	public final int BotBetStrategy(final Table stol){return 0;}
 }

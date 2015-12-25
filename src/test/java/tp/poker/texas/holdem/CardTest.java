@@ -7,18 +7,18 @@ import junit.framework.TestCase;
 public class CardTest extends TestCase {
 	private Card karta;
 	
-	protected void setUp() {
+	protected final void setUp() {
 		karta = new Card(0, 0);
 	}
 	
-	protected void tearDown() {
+	protected final void tearDown() {
 		karta = null;
 	}
 	
 	
 	//Test czy obiekt klasy Card jest tworzony.
 	@Test
-	public void testKarty() {
+	public final void testKarty() {
 		assertNotNull(karta);
 	}
 	
@@ -26,19 +26,19 @@ public class CardTest extends TestCase {
 	
 	//Test metody String nazwaKarty().
 	@Test
-	public void testMtdNazwaKarty() {
+	public final void testMtdNazwaKarty() {
 		assertEquals("dwojka trefl", karta.nazwaKarty());
 	}
 	
 	//Test metody int getKolor()
 	@Test
-	public void testMtdGetKolor() {
+	public final void testMtdGetKolor() {
 		assertEquals(0, karta.getKolor());
 	}
 	
 	//Test metody int getNumFig()
 	@Test
-	public void testMtdGetNumFig() {
+	public final void testMtdGetNumFig() {
 		assertEquals(0, karta.getNumFig());
 	}
 }
