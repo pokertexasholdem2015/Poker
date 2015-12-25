@@ -101,7 +101,7 @@ public void AmmountOfBlinds(int b, int s){
 	
 	public void SetBigBlind(Player gracz){
 		
-		gracz.DealerButton=true;
+		gracz.BigBlind=true;
 	}
 	
 	public void PoCalejRundzie()

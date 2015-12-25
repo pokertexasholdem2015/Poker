@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Deck {
 	private ArrayList<Card> karty;
-	private static Deck talia;
+	private volatile static Deck talia;
 	
 	private Deck() {
 		karty = new ArrayList<Card>();
@@ -32,7 +32,11 @@ public class Deck {
 	
 	public static Deck pobierzTalie() {
 		if(talia == null) {
-			talia = new Deck();
+			synchronized(Deck.class) {
+				if(talia == null) {
+					talia = new Deck();
+				}
+			}
 		}
 		return talia;
 	}
